@@ -1,7 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:triggeo/l10n/app_localizations.dart';
+import 'package:triggeo/l10n/service_strings.dart';
 
 class NotificationService {
   final FlutterLocalNotificationsPlugin _notificationsPlugin =
@@ -13,7 +13,7 @@ class NotificationService {
   static const String channelIdDownload = 'triggeo_download_progress';
   static const int _downloadNotificationId = 777;
 
-  Future<void> initialize(dynamic l10n) async {
+  Future<void> initialize() async {
     await _requestNotificationPermissions();
 
     // Android
@@ -38,15 +38,19 @@ class NotificationService {
 
     await _createNotificationChannel(
       channelIdBackground,
-      l10n.notificationChannelBackgroundName,
-      l10n.notificationChannelBackgroundDesc,
+      ServiceStrings.get('bg_channel_name'),
+      ServiceStrings.get('bg_channel_desc'),
+      // '后台运行服务',
+      // '保持应用在后台检测位置',
       Importance.low,
     );
 
     await _createNotificationChannel(
       channelIdAlert,
-      l10n.notificationChannelAlertName,
-        l10n.notificationChannelAlertDesc,
+      ServiceStrings.get('alert_channel_name'),
+      ServiceStrings.get('alert_channel_desc'),
+      // '位置到达提醒',
+      // '当到达目的地时发出提醒',
       Importance.max,
       playSound: true,
     );
@@ -55,8 +59,10 @@ class NotificationService {
       final AndroidNotificationChannel downloadChannel =
           AndroidNotificationChannel(
         channelIdDownload,
-        l10n.notificationChannelDownloadName,
-        description: l10n.notificationChannelDownloadDesc,
+        // '地图下载进度',
+        // description: '显示离线地图下载的进度',
+        ServiceStrings.get('download_channel_name'),
+        description: ServiceStrings.get('download_channel_desc'),
         importance: Importance.low,
         playSound: false,
         enableVibration: false,
@@ -86,7 +92,7 @@ class NotificationService {
       if (await Permission.notification.isRestricted) {
         return;
       }
-      
+
       final status = await Permission.notification.status;
       if (!status.isGranted) {
         await Permission.notification.request();
@@ -112,20 +118,19 @@ class NotificationService {
     }
   }
 
-  Future<void> showDownloadProgress({
-    required int progress,
-    required int total,
-    required int activeTasks,
-    required AppLocalizations l10n
-  }) async {
+  Future<void> showDownloadProgress(
+      {required int progress,
+      required int total,
+      required int activeTasks}) async {
     final int percentage = total > 0 ? ((progress / total) * 100).toInt() : 0;
     final int safeProgress = progress > total ? total : progress;
 
     final AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       channelIdDownload,
-      l10n.notificationChannelDownloadName,
-      channelDescription: l10n.notificationChannelDownloadDesc,
+      // '地图下载进度',
+      ServiceStrings.get('download_channel_name'),
+      channelDescription: ServiceStrings.get('download_channel_desc'),
       importance: Importance.low,
       priority: Priority.low,
       onlyAlertOnce: true,
@@ -141,7 +146,8 @@ class NotificationService {
 
     await _notificationsPlugin.show(
       _downloadNotificationId,
-      l10n.notificationDownloadProgressTitle(activeTasks),
+      // 正在下载离线地图 ({activeTasks} 个任务)
+      "${ServiceStrings.get('download_pretitle')}$activeTasks${ServiceStrings.get('download_posttitle')}",
       '$percentage% ($progress / $total)',
       platformChannelSpecifics,
     );

@@ -81,7 +81,7 @@
         }
     },
     "offlineMapSearchHint": "搜索城市",
-    "offlineMapSearchButton": "开始搜索",
+    "offlineMapSearchButton": "搜索",
     "offlineMapSearching": "搜索中...",
     "offlineMapNoResults": "没有找到搜索结果",
     "offlineMapDownloadAction": "下载",

@@ -102,7 +102,6 @@ class OfflineMapService {
       progress: downloadedTilesAll,
       total: totalTilesAll,
       activeTasks: activeTasks.length,
-      l10n: l10n,
     );
   }
 

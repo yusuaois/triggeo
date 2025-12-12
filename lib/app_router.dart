@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:triggeo/features/map/map_screen.dart';
 import 'package:triggeo/features/reminders/reminder_detail_screen.dart';
@@ -5,7 +6,10 @@ import 'package:triggeo/features/reminders/reminder_list_screen.dart';
 import 'package:triggeo/features/settings/settings_screen.dart';
 import 'package:latlong2/latlong.dart';
 
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+
 final router = GoRouter(
+  navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
   routes: [
     GoRoute(
@@ -29,3 +33,5 @@ final router = GoRouter(
     ),
   ],
 );
+
+GlobalKey<NavigatorState> get rootNavigatorKey => _rootNavigatorKey;

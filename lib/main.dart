@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:triggeo/app_router.dart';
 import 'package:triggeo/core/constants/global_config.dart';
 import 'package:triggeo/data/models/download_task.dart';
 import 'package:triggeo/data/models/offline_region.dart';
@@ -14,7 +15,6 @@ import 'package:triggeo/l10n/app_localizations.dart';
 import 'core/services/notification_service.dart';
 import 'core/services/location_service.dart';
 import 'features/settings/theme_controller.dart';
-import 'app_router.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +33,15 @@ void main() async {
   // Open the settings box
   await Hive.openBox('settings_box');
 
+// Initialize services
+  final notificationService = NotificationService();
+  await notificationService.initialize();
+  final locationService = LocationService();
+  await locationService.initialize();
+
+  await locationService.requestPermission();
+
+
   final docDir = await getApplicationDocumentsDirectory();
   globalOfflineMapsDir = '${docDir.path}/offline_maps';
 
@@ -43,18 +52,11 @@ void main() async {
   );
 }
 
-class TriggeoApp extends ConsumerStatefulWidget {
+class TriggeoApp extends ConsumerWidget {
   const TriggeoApp({super.key});
 
   @override
-  ConsumerState<TriggeoApp> createState() => _TriggeoAppState();
-}
-
-class _TriggeoAppState extends ConsumerState<TriggeoApp> {
-  final LocationService _locationService = LocationService();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final themeState = ref.watch(themeControllerProvider);
 
     return DynamicColorBuilder(
@@ -114,18 +116,6 @@ class _TriggeoAppState extends ConsumerState<TriggeoApp> {
             Locale('zh', 'CN'), // Chinese
             Locale('en', 'US'), // English
           ],
-          builder: (context, child) {
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-              final l10n = AppLocalizations.of(context)!;
-              // Notification Service Initialization
-              final notificationService = NotificationService();
-              await notificationService.initialize(l10n);
-              // Location Service Initialization
-              await _locationService.initialize(l10n, context);
-              await _locationService.requestPermission();
-            });
-            return child!;
-          },
           routerConfig: router,
         );
       },

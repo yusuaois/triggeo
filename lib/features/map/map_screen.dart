@@ -44,7 +44,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
     await locationService.startService();
 
-    final initialPos = await locationService.getCurrentPosition(context);
+    final initialPos = await locationService.getCurrentPosition();
 
     if (initialPos != null && mounted) {
       final latLng = LatLng(initialPos['lat'], initialPos['lng']);
@@ -100,7 +100,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         SnackBar(content: Text(AppLocalizations.of(context)!.mapLocating)));
     try {
       final locationService = ref.read(locationServiceProvider);
-      final pos = await locationService.getCurrentPosition(context);
+      final pos = await locationService.getCurrentPosition();
       if (pos != null && mounted) {
         final latLng = LatLng(pos['lat'], pos['lng']);
         _updateLocation(latLng);
