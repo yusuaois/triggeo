@@ -509,7 +509,7 @@ abstract class AppLocalizations {
   /// No description provided for @reminderDetailInfo.
   ///
   /// In en, this message translates to:
-  /// **'Latitude: {lat}\nLontitude: {lon}'**
+  /// **'Latitude: {lat}\nLongtitude: {lon}'**
   String reminderDetailInfo(Object lat, Object lon);
 
   /// No description provided for @reminderCreated.
@@ -572,59 +572,59 @@ abstract class AppLocalizations {
   /// **'Reminder Triggered: {name}'**
   String locationServiceAlertTitle(Object name);
 
-  /// No description provided for @locationServiceAlertBodyTitle.
+  /// No description provided for @arrivalAlertTitle.
   ///
   /// In en, this message translates to:
   /// **'📍 Arrival Alert: {name}'**
-  String locationServiceAlertBodyTitle(Object name);
+  String arrivalAlertTitle(Object name);
 
-  /// No description provided for @locationServiceAlertBodySubtitle.
+  /// No description provided for @arrivalAlertBody.
   ///
   /// In en, this message translates to:
   /// **'You have arrived at Target Location'**
-  String get locationServiceAlertBodySubtitle;
+  String get arrivalAlertBody;
 
-  /// No description provided for @notificationChannelBackgroundName.
+  /// No description provided for @backgroundChannelName.
   ///
   /// In en, this message translates to:
   /// **'Background Running Service'**
-  String get notificationChannelBackgroundName;
+  String get backgroundChannelName;
 
-  /// No description provided for @notificationChannelBackgroundDesc.
+  /// No description provided for @backgroundChannelDesc.
   ///
   /// In en, this message translates to:
   /// **'Keep app running in background to detect location'**
-  String get notificationChannelBackgroundDesc;
+  String get backgroundChannelDesc;
 
-  /// No description provided for @notificationChannelAlertName.
+  /// No description provided for @alertChannelName.
   ///
   /// In en, this message translates to:
   /// **'Location Arrival Reminder'**
-  String get notificationChannelAlertName;
+  String get alertChannelName;
 
-  /// No description provided for @notificationChannelAlertDesc.
+  /// No description provided for @alertChannelDesc.
   ///
   /// In en, this message translates to:
   /// **'Notify when arriving at a destination'**
-  String get notificationChannelAlertDesc;
+  String get alertChannelDesc;
 
-  /// No description provided for @notificationChannelDownloadName.
+  /// No description provided for @downloadChannelName.
   ///
   /// In en, this message translates to:
   /// **'Map Download Progress'**
-  String get notificationChannelDownloadName;
+  String get downloadChannelName;
 
-  /// No description provided for @notificationChannelDownloadDesc.
+  /// No description provided for @downloadChannelDesc.
   ///
   /// In en, this message translates to:
   /// **'Show progress of offline map downloads'**
-  String get notificationChannelDownloadDesc;
+  String get downloadChannelDesc;
 
-  /// No description provided for @notificationDownloadProgressTitle.
+  /// No description provided for @downloadProgressTitle.
   ///
   /// In en, this message translates to:
   /// **'Downloading offline map ({activeTasks} tasks)'**
-  String notificationDownloadProgressTitle(int activeTasks);
+  String downloadProgressTitle(int activeTasks);
 
   /// No description provided for @notificationDownloadFailedTitle.
   ///

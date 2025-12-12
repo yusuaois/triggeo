@@ -239,7 +239,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String reminderDetailInfo(Object lat, Object lon) {
-    return 'Latitude: $lat\nLontitude: $lon';
+    return 'Latitude: $lat\nLongtitude: $lon';
   }
 
   @override
@@ -278,37 +278,34 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String locationServiceAlertBodyTitle(Object name) {
+  String arrivalAlertTitle(Object name) {
     return '📍 Arrival Alert: $name';
   }
 
   @override
-  String get locationServiceAlertBodySubtitle =>
-      'You have arrived at Target Location';
+  String get arrivalAlertBody => 'You have arrived at Target Location';
 
   @override
-  String get notificationChannelBackgroundName => 'Background Running Service';
+  String get backgroundChannelName => 'Background Running Service';
 
   @override
-  String get notificationChannelBackgroundDesc =>
+  String get backgroundChannelDesc =>
       'Keep app running in background to detect location';
 
   @override
-  String get notificationChannelAlertName => 'Location Arrival Reminder';
+  String get alertChannelName => 'Location Arrival Reminder';
 
   @override
-  String get notificationChannelAlertDesc =>
-      'Notify when arriving at a destination';
+  String get alertChannelDesc => 'Notify when arriving at a destination';
 
   @override
-  String get notificationChannelDownloadName => 'Map Download Progress';
+  String get downloadChannelName => 'Map Download Progress';
 
   @override
-  String get notificationChannelDownloadDesc =>
-      'Show progress of offline map downloads';
+  String get downloadChannelDesc => 'Show progress of offline map downloads';
 
   @override
-  String notificationDownloadProgressTitle(int activeTasks) {
+  String downloadProgressTitle(int activeTasks) {
     return 'Downloading offline map ($activeTasks tasks)';
   }
 

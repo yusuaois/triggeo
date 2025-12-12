@@ -152,7 +152,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get offlineMapSearchHint => '搜索城市';
 
   @override
-  String get offlineMapSearchButton => '开始搜索';
+  String get offlineMapSearchButton => '搜索';
 
   @override
   String get offlineMapSearching => '搜索中...';
@@ -273,33 +273,33 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String locationServiceAlertBodyTitle(Object name) {
+  String arrivalAlertTitle(Object name) {
     return '📍 到达提醒: $name';
   }
 
   @override
-  String get locationServiceAlertBodySubtitle => '您已到达目标区域';
+  String get arrivalAlertBody => '您已到达目标区域';
 
   @override
-  String get notificationChannelBackgroundName => '后台运行服务';
+  String get backgroundChannelName => '后台运行服务';
 
   @override
-  String get notificationChannelBackgroundDesc => '保持应用在后台检测位置';
+  String get backgroundChannelDesc => '保持应用在后台检测位置';
 
   @override
-  String get notificationChannelAlertName => '位置到达提醒';
+  String get alertChannelName => '位置到达提醒';
 
   @override
-  String get notificationChannelAlertDesc => '当到达目的地时发出提醒';
+  String get alertChannelDesc => '当到达目的地时发出提醒';
 
   @override
-  String get notificationChannelDownloadName => '地图下载进度';
+  String get downloadChannelName => '地图下载进度';
 
   @override
-  String get notificationChannelDownloadDesc => '显示离线地图下载的进度';
+  String get downloadChannelDesc => '显示离线地图下载的进度';
 
   @override
-  String notificationDownloadProgressTitle(int activeTasks) {
+  String downloadProgressTitle(int activeTasks) {
     return '正在下载离线地图 ($activeTasks 个任务)';
   }
 

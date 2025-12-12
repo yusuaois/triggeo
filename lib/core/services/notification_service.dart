@@ -38,8 +38,8 @@ class NotificationService {
 
     await _createNotificationChannel(
       channelIdBackground,
-      ServiceStrings.get('bg_channel_name'),
-      ServiceStrings.get('bg_channel_desc'),
+      ServiceStrings.backgroundChannelName(),
+      ServiceStrings.backgroundChannelDesc(),
       // '后台运行服务',
       // '保持应用在后台检测位置',
       Importance.low,
@@ -47,8 +47,8 @@ class NotificationService {
 
     await _createNotificationChannel(
       channelIdAlert,
-      ServiceStrings.get('alert_channel_name'),
-      ServiceStrings.get('alert_channel_desc'),
+      ServiceStrings.alertChannelName(),
+      ServiceStrings.alertChannelDesc(),
       // '位置到达提醒',
       // '当到达目的地时发出提醒',
       Importance.max,
@@ -61,8 +61,8 @@ class NotificationService {
         channelIdDownload,
         // '地图下载进度',
         // description: '显示离线地图下载的进度',
-        ServiceStrings.get('download_channel_name'),
-        description: ServiceStrings.get('download_channel_desc'),
+        ServiceStrings.downloadChannelName(),
+        description: ServiceStrings.downloadChannelDesc(),
         importance: Importance.low,
         playSound: false,
         enableVibration: false,
@@ -129,8 +129,8 @@ class NotificationService {
         AndroidNotificationDetails(
       channelIdDownload,
       // '地图下载进度',
-      ServiceStrings.get('download_channel_name'),
-      channelDescription: ServiceStrings.get('download_channel_desc'),
+      ServiceStrings.downloadChannelName(),
+      channelDescription: ServiceStrings.downloadChannelDesc(),
       importance: Importance.low,
       priority: Priority.low,
       onlyAlertOnce: true,
@@ -147,7 +147,7 @@ class NotificationService {
     await _notificationsPlugin.show(
       _downloadNotificationId,
       // 正在下载离线地图 ({activeTasks} 个任务)
-      "${ServiceStrings.get('download_pretitle')}$activeTasks${ServiceStrings.get('download_posttitle')}",
+      ServiceStrings.downloadProgressTitle(activeTasks),
       '$percentage% ($progress / $total)',
       platformChannelSpecifics,
     );

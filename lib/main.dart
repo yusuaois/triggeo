@@ -33,14 +33,14 @@ void main() async {
   // Open the settings box
   await Hive.openBox('settings_box');
 
-// Initialize services
+  // Initialize services
   final notificationService = NotificationService();
   await notificationService.initialize();
   final locationService = LocationService();
   await locationService.initialize();
 
+  // Permission request
   await locationService.requestPermission();
-
 
   final docDir = await getApplicationDocumentsDirectory();
   globalOfflineMapsDir = '${docDir.path}/offline_maps';

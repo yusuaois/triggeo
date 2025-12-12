@@ -151,28 +151,30 @@
     "backgroundServiceAlwaysPermissionError": "位置权限不足，请在系统设置中授予“始终”权限以确保后台提醒功能正常。",
     "backgroundServiceStarted": "后台定位服务已启动",
     "backgroundServiceStopped": "后台定位服务已停止",
+    
     "locationServiceAlertTitle": "提醒触发: {name}",
     "@locationServiceAlertTitle": {
         "placeholders": {
             "name": {}
         }
     },
-    "locationServiceAlertBodyTitle": "📍 到达提醒: {name}",
-    "@locationServiceAlertBodyTitle": {
+    "arrivalAlertTitle": "📍 到达提醒: {name}",
+    "@arrivalAlertTitle": {
         "placeholders": {
             "name": {}
         }
     },
-    "locationServiceAlertBodySubtitle": "您已到达目标区域",
+    "arrivalAlertBody": "您已到达目标区域",
 
-    "notificationChannelBackgroundName": "后台运行服务",
-    "notificationChannelBackgroundDesc": "保持应用在后台检测位置",
-    "notificationChannelAlertName": "位置到达提醒",
-    "notificationChannelAlertDesc": "当到达目的地时发出提醒",
-    "notificationChannelDownloadName": "地图下载进度",
-    "notificationChannelDownloadDesc": "显示离线地图下载的进度",
-    "notificationDownloadProgressTitle": "正在下载离线地图 ({activeTasks} 个任务)",
-    "@notificationDownloadProgressTitle": {
+    "backgroundChannelName": "后台运行服务",
+    "backgroundChannelDesc": "保持应用在后台检测位置",
+    "alertChannelName": "位置到达提醒",
+    "alertChannelDesc": "当到达目的地时发出提醒",
+    "downloadChannelName": "地图下载进度",
+    "downloadChannelDesc": "显示离线地图下载的进度",
+    
+    "downloadProgressTitle": "正在下载离线地图 ({activeTasks} 个任务)",
+    "@downloadProgressTitle": {
         "placeholders": {
             "activeTasks": {
                 "type": "int"

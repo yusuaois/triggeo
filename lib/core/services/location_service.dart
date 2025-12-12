@@ -101,14 +101,14 @@ void onStart(ServiceInstance service) async {
           // A. Visual notification
           await notificationPlugin.show(
             reminder.id.hashCode,
-            "${ServiceStrings.get('arrival_alert_title')}${reminder.name}",
-            ServiceStrings.get('arrival_alert_body'),
+            ServiceStrings.arrivalAlertTitle(reminder.name),
+            ServiceStrings.arrivalAlertBody(),
             // "📍 到达提醒: ${reminder.name}",
             // "您已进入目标区域",
             NotificationDetails(
               android: AndroidNotificationDetails(
                 NotificationService.channelIdAlert,
-                ServiceStrings.get('alert_channel_name'),
+                ServiceStrings.alertChannelName(),
                 // '位置到达提醒',
                 importance: Importance.max,
                 priority: Priority.high,
@@ -186,8 +186,8 @@ class LocationService {
         autoStart: false,
         isForegroundMode: true,
         notificationChannelId: NotificationService.channelIdBackground,
-        initialNotificationTitle: ServiceStrings.get('bg_notification_title'),
-        initialNotificationContent: ServiceStrings.get('bg_notification_content'),
+        initialNotificationTitle: ServiceStrings.backgroundNotificationTitle(),
+        initialNotificationContent: ServiceStrings.backgroundNotificationContent(),
         foregroundServiceNotificationId: 888,
       ),
       iosConfiguration: IosConfiguration(

@@ -134,7 +134,7 @@
         }
     },
     "reminderEditTitle": "Add/Edit Reminder",
-    "reminderDetailInfo":"Latitude: {lat}\nLontitude: {lon}",
+    "reminderDetailInfo":"Latitude: {lat}\nLongtitude: {lon}",
     "@reminderDetailInfo": {
         "placeholders": {
             "lat": {},
@@ -151,29 +151,31 @@
     "backgroundServiceAlwaysPermissionError": "Insufficient location permission. Please grant \"Always\" permission in system settings to ensure background reminder functionality.",
     "backgroundServiceStarted": "Background location service started",
     "backgroundServiceStopped": "Background location service stopped",
+    
     "locationServiceAlertTitle": "Reminder Triggered: {name}",
     "@locationServiceAlertTitle": {
         "placeholders": {
             "name": {}
         }
     },
-    "locationServiceAlertBodyTitle": "📍 Arrival Alert: {name}",
-    "@locationServiceAlertBodyTitle": {
+    "arrivalAlertTitle": "📍 Arrival Alert: {name}",
+    "@arrivalAlertTitle": {
         "placeholders": {
             "name": {}
         }
     },
-    "locationServiceAlertBodySubtitle": "You have arrived at Target Location",
+    "arrivalAlertBody": "You have arrived at Target Location",
 
-    "notificationChannelBackgroundName": "Background Running Service",
-    "notificationChannelBackgroundDesc": "Keep app running in background to detect location",
-    "notificationChannelAlertName": "Location Arrival Reminder",
-    "notificationChannelAlertDesc": "Notify when arriving at a destination",
-    "notificationChannelDownloadName": "Map Download Progress",
-    "notificationChannelDownloadDesc": "Show progress of offline map downloads",
-    "notificationDownloadProgressTitle": "Downloading offline map ({activeTasks} tasks)",
-    "@notificationDownloadProgressTitle": {
-        "placeholders": {
+    "backgroundChannelName": "Background Running Service",
+    "backgroundChannelDesc": "Keep app running in background to detect location",
+    "alertChannelName": "Location Arrival Reminder",
+    "alertChannelDesc": "Notify when arriving at a destination",
+    "downloadChannelName": "Map Download Progress",
+    "downloadChannelDesc": "Show progress of offline map downloads",
+    
+    "downloadProgressTitle": "Downloading offline map ({activeTasks} tasks)",
+    "@downloadProgressTitle": {
+         "placeholders": {
             "activeTasks": {
                 "type": "int"
             }
