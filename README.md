@@ -43,7 +43,7 @@ flutter run
 
 ## 📱 Application Preview
 
-![Map](assets/images/preview/Map.png)
+<img src="assets/images/preview/Map.png" width="210px" alt="Map">
 
 ---
 

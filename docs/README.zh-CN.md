@@ -43,7 +43,7 @@ flutter run
 
 ## 📱 应用预览
 
-![地图](assets\images\preview\Map.png)
+<img src="../assets/images/preview/Map.png" width="210px" alt="Map">
 
 ---
 
