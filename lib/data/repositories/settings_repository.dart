@@ -40,7 +40,7 @@ const List<SearchApi> kSearchApis = [
       "assets/images/amap.svg"),
   SearchApi(
       "百度",
-      'https://api.map.baidu.com/place/v2/search?query={query}&region=全国&output=json&ak={key}',
+      'https://api.map.baidu.com/place/v2/search?query={query}&region=全国&output=json&ak={key}&page_size=5&scope=2&city_limit=true',
       true,
       "assets/images/baidu.svg"),
 ];
