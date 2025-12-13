@@ -43,8 +43,7 @@ flutter run
 
 ## 📱 应用预览
 
-<img src="assets/images/preview/Map.png" width="210px" alt="Map">
-<img src="assets/images/preview/Settings.png" width="210px" alt="Settings">
+<img src="assets/images/preview/Map.png" width="210px" alt="Map"><img src="assets/images/preview/Settings.png" width="210px" alt="Settings">
 
 ---
 
