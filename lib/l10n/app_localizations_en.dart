@@ -12,6 +12,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helloWorld => 'Hello World';
 
   @override
+  String get mapApiKeyTitle => 'API Key';
+
+  @override
+  String get mapApiKeyHint => 'Please enter your API Key';
+
+  @override
+  String get mapCancel => 'Cancel';
+
+  @override
+  String get mapConfirm => 'Confirm';
+
+  @override
+  String needApiKey(Object name) {
+    return 'Please set API Key for $name';
+  }
+
+  @override
   String mapSearchFailed(Object error) {
     return 'Search failed: $error';
   }

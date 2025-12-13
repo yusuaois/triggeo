@@ -356,7 +356,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               Theme.of(context);
 
               return ListTile(
-                // TODO 搜索源 高德/百度
                 title: Text(AppLocalizations.of(context)!.settingsTileSource),
                 subtitle: Text(kTileSources[currentIndex].name),
                 trailing: PopupMenuButton<int>(

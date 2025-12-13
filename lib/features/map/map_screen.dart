@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
@@ -41,9 +42,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   Future<void> _initLocation() async {
     final locationService = ref.read(locationServiceProvider);
-
     await locationService.startService();
-
     final initialPos = await locationService.getCurrentPosition();
 
     if (initialPos != null && mounted) {
@@ -65,8 +64,24 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   Future<void> _searchPlaces(String query) async {
     if (query.isEmpty) return;
     setState(() => _isSearching = true);
-    final url = Uri.parse(
-        'https://nominatim.openstreetmap.org/search?q=$query&format=json&limit=5&accept-language=zh-CN');
+    final settingsRepo = ref.read(settingsRepositoryProvider);
+    final api = settingsRepo.getCurrentSearchApi();
+    String? key;
+    if (api.needKey) {
+      key = settingsRepo.getSearchApiKey(api.name);
+      if (key.isEmpty) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(
+              // "Please set API Key for ${api.name}"
+              AppLocalizations.of(context)!.needApiKey(api.name))));
+        }
+        setState(() => _isSearching = false);
+        return;
+      }
+    }
+    final url = Uri.parse(api.urlTemplate
+        .replaceAll('{query}', query)
+        .replaceAll('{key}', key as String));
     try {
       final response =
           await http.get(url, headers: {'User-Agent': 'TriggeoApp/1.0'});
@@ -185,9 +200,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                               border: Border.all(color: Colors.white, width: 2),
                             ),
                           ),
-                          const Icon(
+                          Icon(
                             Icons.navigation,
-                            color: Colors.blueAccent,
+                            color: Theme.of(context).colorScheme.primary,
                             size: 24,
                           ),
                         ],
@@ -218,8 +233,84 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                           decoration: InputDecoration(
                             hintText:
                                 AppLocalizations.of(context)!.mapSearchHint,
-                            prefixIcon: Icon(Icons.search,
-                                color: Theme.of(context).colorScheme.onSurface),
+                            prefixIcon: Consumer(
+                              builder: (context, ref, child) {
+                                final settingsRepo =
+                                    ref.watch(settingsRepositoryProvider);
+                                final currentIndex =
+                                    settingsRepo.getCurrentSearchApiIndex();
+                                return DropdownButton<int>(
+                                    value: currentIndex,
+                                    icon: const SizedBox.shrink(),
+                                    underline: const SizedBox(),
+                                    menuMaxHeight: 300,
+                                    borderRadius: BorderRadius.circular(12),
+                                    onChanged: (int? newIndex) async {
+                                      if (newIndex != null) {
+                                        await settingsRepo
+                                            .setSearchApi(newIndex);
+                                        setState(() {}); // Refresh UI
+                                        // If the newly selected API needs a key
+                                        final api = kSearchApis[newIndex];
+                                        if (api.needKey) {
+                                          if (context.mounted) {
+                                            kSearchApiKeyDialog(
+                                                context, api.name);
+                                          }
+                                        }
+                                      }
+                                    },
+                                    items: List.generate(kSearchApis.length,
+                                        (index) {
+                                      return DropdownMenuItem<int>(
+                                        value: index,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SvgPicture.asset(
+                                                kSearchApis[index].assetPath,
+                                                width: 20,
+                                                height: 20,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary),
+                                            SizedBox(width: 8),
+                                            Text(kSearchApis[index].name),
+                                          ],
+                                        ),
+                                      );
+                                    }),
+                                    selectedItemBuilder:
+                                        (BuildContext context) {
+                                      return kSearchApis
+                                          .map<Widget>((SearchApi api) {
+                                        return Container(
+                                          margin: const EdgeInsets.only(
+                                              left: 10.0, right: 8.0),
+                                          width: 36,
+                                          height: 36,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? Colors.grey[200]
+                                                    : Colors.grey[800],
+                                            shape: BoxShape.circle,
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: SvgPicture.asset(
+                                            api.assetPath,
+                                            width: 20,
+                                            height: 20,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                        );
+                                      }).toList();
+                                    });
+                              },
+                            ),
                             suffixIcon: _isSearching
                                 ? SizedBox(
                                     width: 20,
@@ -229,13 +320,13 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                                         child: CircularProgressIndicator(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .onSurface,
+                                                .primary,
                                             strokeWidth: 2)))
                                 : IconButton(
                                     icon: Icon(Icons.clear,
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onSurface),
+                                            .primary),
                                     onPressed: () {
                                       _searchController.clear();
                                       setState(() => _searchResults = []);
@@ -258,7 +349,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                     const SizedBox(width: 8),
                     IconButton(
                       icon: Icon(Icons.settings,
-                          color: Theme.of(context).colorScheme.onSurface),
+                          color: Theme.of(context).colorScheme.primary),
                       onPressed: () => context.push('/settings'),
                       style: IconButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.surface,
@@ -288,21 +379,22 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                       itemBuilder: (context, index) {
                         final place = _searchResults[index];
                         if (place.isEmpty) {
-                      return Center(
-                        child: Text(AppLocalizations.of(context)!.mapNoSearchResults), 
-                      );
-                    }
+                          return Center(
+                            child: Text(AppLocalizations.of(context)!
+                                .mapNoSearchResults),
+                          );
+                        }
                         return ListTile(
                           title: Text(place['display_name'].split(',')[0],
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color:
-                                      Theme.of(context).colorScheme.onSurface)),
+                                      Theme.of(context).colorScheme.primary)),
                           subtitle: Text(place['display_name'],
                               maxLines: 1, overflow: TextOverflow.ellipsis),
                           leading: Icon(Icons.location_city,
                               size: 20,
-                              color: Theme.of(context).colorScheme.onSurface),
+                              color: Theme.of(context).colorScheme.primary),
                           onTap: () {
                             final lat = double.parse(place['lat']);
                             final lon = double.parse(place['lon']);
@@ -342,6 +434,39 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  void kSearchApiKeyDialog(BuildContext context, String apiName) {
+    final TextEditingController apiKeyController = TextEditingController();
+    final settingsRepo = ref.read(settingsRepositoryProvider);
+    apiKeyController.text = settingsRepo.getSearchApiKey(apiName);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title:
+            Text('${AppLocalizations.of(context)!.mapApiKeyTitle} ($apiName)'),
+        content: TextField(
+          controller: apiKeyController,
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.mapApiKeyHint,
+            border: const OutlineInputBorder(),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(AppLocalizations.of(context)!.mapCancel),
+          ),
+          TextButton(
+            onPressed: () {
+              settingsRepo.setSearchApiKey(apiName, apiKeyController.text);
+              Navigator.pop(context);
+            },
+            child: Text(AppLocalizations.of(context)!.mapConfirm),
+          ),
+        ],
+      ),
     );
   }
 }

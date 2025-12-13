@@ -2,6 +2,17 @@
     "@@locale": "zh",
     "helloWorld": "你好世界",
 
+    "mapApiKeyTitle": "API 密钥",
+    "mapApiKeyHint": "请输入您的 API 密钥",
+    "mapCancel": "取消",
+    "mapConfirm": "确认",
+    "needApiKey": "请为 {name} 输入 API 密钥",
+    "@needApiKey": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+
     "mapSearchFailed": "搜索失败: {error}",
     "@mapSearchFailed": {
         "placeholders": {

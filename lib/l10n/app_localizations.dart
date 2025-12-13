@@ -104,6 +104,36 @@ abstract class AppLocalizations {
   /// **'Hello World'**
   String get helloWorld;
 
+  /// No description provided for @mapApiKeyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'API Key'**
+  String get mapApiKeyTitle;
+
+  /// No description provided for @mapApiKeyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your API Key'**
+  String get mapApiKeyHint;
+
+  /// No description provided for @mapCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get mapCancel;
+
+  /// No description provided for @mapConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get mapConfirm;
+
+  /// No description provided for @needApiKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Please set API Key for {name}'**
+  String needApiKey(Object name);
+
   /// No description provided for @mapSearchFailed.
   ///
   /// In en, this message translates to:

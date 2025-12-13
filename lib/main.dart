@@ -83,6 +83,7 @@ class TriggeoApp extends ConsumerWidget {
 
         return MaterialApp.router(
           title: 'Triggeo',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: true,
             colorScheme: lightScheme,

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapSelectionState {
@@ -24,8 +25,9 @@ class MapSelectionController extends Notifier<MapSelectionState> {
   void clearSelection() {
     state = MapSelectionState(selectedPosition: null);
   }
-}
 
-final mapControllerProvider = NotifierProvider<MapSelectionController, MapSelectionState>(() {
-  return MapSelectionController();
-});
+  String getMapProvider(){
+    final provider = Hive.box("settings_box").get('map_provider', defaultValue: "OpenStreetMap");
+    return provider;
+  }
+}

@@ -12,6 +12,23 @@ class AppLocalizationsZh extends AppLocalizations {
   String get helloWorld => '你好世界';
 
   @override
+  String get mapApiKeyTitle => 'API 密钥';
+
+  @override
+  String get mapApiKeyHint => '请输入您的 API 密钥';
+
+  @override
+  String get mapCancel => '取消';
+
+  @override
+  String get mapConfirm => '确认';
+
+  @override
+  String needApiKey(Object name) {
+    return '请为 $name 输入 API 密钥';
+  }
+
+  @override
   String mapSearchFailed(Object error) {
     return '搜索失败: $error';
   }

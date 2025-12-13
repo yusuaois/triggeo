@@ -2,6 +2,17 @@
     "@@locale": "en",
     "helloWorld": "Hello World",
 
+    "mapApiKeyTitle": "API Key",
+    "mapApiKeyHint": "Please enter your API Key",
+    "mapCancel": "Cancel",
+    "mapConfirm": "Confirm",
+    "needApiKey": "Please set API Key for {name}",
+    "@needApiKey": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+
     "mapSearchFailed": "Search failed: {error}",
     "@mapSearchFailed": {
         "placeholders": {

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:triggeo/core/services/offline_map_service.dart';
+import 'package:triggeo/features/map/map_controller.dart';
 import 'audio_service.dart';
 import 'location_service.dart';
 import 'notification_service.dart';
@@ -27,3 +28,8 @@ final currentLocationProvider = StreamProvider<Map<String, dynamic>?>((ref) {
 
 // 5. Offline Map Service Provider
 final offlineMapServiceProvider = Provider((ref) => OfflineMapService());
+
+// 6. Map Selection Provider
+final mapControllerProvider = NotifierProvider<MapSelectionController, MapSelectionState>(() {
+  return MapSelectionController();
+});
