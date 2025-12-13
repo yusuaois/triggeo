@@ -10,7 +10,7 @@ class ServiceStrings {
       locale = Locale(priorityLang.startsWith('zh') ? 'zh' : 'en');
     } 
     else {
-      final String systemLocale = Platform.localeName; // 例如 zh_CN, en_US
+      final String systemLocale = Platform.localeName; // zh_CN, en_US
       if (systemLocale.startsWith('zh')) {
         locale = const Locale('zh');
       } else {

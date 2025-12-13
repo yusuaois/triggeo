@@ -63,6 +63,16 @@
         }
     },
     "settingsTestSetting": "Test Setting",
+
+    "settingsDistanceFilter": "Distance Filter({distanceFilter} m)",
+    "@settingsDistanceFilter": {
+      "placeholders": {
+            "distanceFilter": {}
+        }
+    },
+    "settingsDistanceFilterHint": "Minimum distance to update location (in meters). The smaller the value, the more frequent the location update, but the higher the battery consumption",
+    "settingsLocationUpdate": "Location Update",
+
     "settingsMapDataSection": "Map & Data",
     "settingsOfflineMap": "Offline Maps",
     "settingsManageOfflineMap": "Manage Downloaded Maps",

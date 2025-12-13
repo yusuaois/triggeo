@@ -25,6 +25,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   GlobalReminderType _reminderType = GlobalReminderType.both;
   String? _customRingtonePath;
+  int _distanceFilter = 10;
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       int typeIndex = _settingsBox.get('reminder_type', defaultValue: 2);
       _reminderType = GlobalReminderType.values[typeIndex];
       _customRingtonePath = _settingsBox.get('custom_ringtone_path');
+      _distanceFilter = _settingsBox.get('distance_filter', defaultValue: 10);
     });
   }
 
@@ -46,9 +48,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await _settingsBox.put('reminder_type', type.index);
   }
 
+  Future<void> _saveDistanceFilter(int value) async {
+    setState(() => _distanceFilter = value);
+    await _settingsBox.put('distance_filter', value);
+    // update distance filter in location service
+    final locationService = ref.read(locationServiceProvider);
+    await locationService.updateDistanceFilter(value);
+  }
+
   Future<void> _pickAndSaveRingtone() async {
     FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.audio);
+        await FilePicker.platform.pickFiles(type: FileType.audio,allowMultiple: false);
 
     if (result != null && result.files.single.path != null) {
       final sourceFile = File(result.files.single.path!);
@@ -84,10 +94,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.settingsTitle)),
       body: ListView(
         children: [
+          // Notification
           _buildSectionHeader(
               context, AppLocalizations.of(context)!.settingsReminderSection),
-
-          // Notification
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
@@ -146,6 +155,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             },
           ),
 
+          // Theme Section
           const Divider(),
           _buildSectionHeader(
               context, AppLocalizations.of(context)!.settingsThemeSection),
@@ -213,11 +223,36 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ),
 
+          // DistanceFilter
           const Divider(),
           _buildSectionHeader(
-              context,
-              AppLocalizations.of(context)!
-                  .settingsMapDataSection), // New Section Header
+              context, AppLocalizations.of(context)!.settingsLocationUpdate),
+          ListTile(
+            title: Text(
+                AppLocalizations.of(context)!.settingsDistanceFilter(_distanceFilter)),
+            subtitle: Slider(
+              value: _distanceFilter.toDouble(),
+              min: 5,
+              max: 100,
+              divisions: 19, // (100-5)/5 = 19
+              label: '$_distanceFilter''m',
+              onChanged: (value) => setState(() => _distanceFilter = value.toInt()),
+              onChangeEnd: (value) => _saveDistanceFilter(value.toInt()),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              AppLocalizations.of(context)!.settingsDistanceFilterHint,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+
+          // Map Data Section
+          const Divider(),
+          _buildSectionHeader(
+              context, AppLocalizations.of(context)!.settingsMapDataSection),
+          // Offline Map
           ListTile(
             leading: const Icon(Icons.download_for_offline),
             title: Text(AppLocalizations.of(context)!.settingsOfflineMap),

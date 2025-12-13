@@ -63,116 +63,137 @@ void onStart(ServiceInstance service) async {
     service.invoke('update',
         {"lat": initialPosition.latitude, "lng": initialPosition.longitude});
   } catch (e) {
-    // ScaffoldMessenger.of(rootNavigatorKey.currentContext!)
-    //     .showSnackBar(SnackBar(
-    //   content: Text(AppLocalizations.of(rootNavigatorKey.currentContext!)!
-    //       .mapGetLocationFailed(e.toString())),
-    // ));
     debugPrint("BackgroundService: $e");
   }
 
-  Geolocator.getPositionStream(
-    locationSettings: const LocationSettings(
-      accuracy: LocationAccuracy.high,
-      // TODO 设置中调整位置更新频率
-      distanceFilter: 10,
-    ),
-  ).listen((Position position) async {
-    service.invoke('update', {
-      "lat": position.latitude,
-      "lng": position.longitude,
-    });
+  StreamSubscription<Position>? positionSubscription;
+  final BehaviorSubject<int> distanceFilterController =
+      BehaviorSubject<int>.seeded(10);
 
-    final userLoc = LatLng(position.latitude, position.longitude);
+  void startPositionStream(int distanceFilter) {
+    positionSubscription?.cancel();
+    positionSubscription = Geolocator.getPositionStream(
+      locationSettings: LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: distanceFilter,
+      ),
+    ).listen((Position position) async {
+      service.invoke('update', {
+        "lat": position.latitude,
+        "lng": position.longitude,
+      });
 
-    // 0: ringtone, 1: vibration, 2: both
-    final int reminderTypeIndex =
-        settingsBox.get('reminder_type', defaultValue: 2);
-    final String? customRingtonePath = settingsBox.get('custom_ringtone_path');
+      final userLoc = LatLng(position.latitude, position.longitude);
+      // 0: ringtone, 1: vibration, 2: both
+      final int reminderTypeIndex =
+          settingsBox.get('reminder_type', defaultValue: 2);
+      final String? customRingtonePath =
+          settingsBox.get('custom_ringtone_path');
 
-    for (var reminder in reminderBox.values.where((r) => r.isActive)) {
-      final targetLoc = LatLng(reminder.latitude, reminder.longitude);
+      for (var reminder in reminderBox.values.where((r) => r.isActive)) {
+        final targetLoc = LatLng(reminder.latitude, reminder.longitude);
 
-      if (GeofenceCalculator.isInRadius(userLoc, targetLoc, reminder.radius)) {
-        final lastTrigger = cooldowns[reminder.id];
+        if (GeofenceCalculator.isInRadius(
+            userLoc, targetLoc, reminder.radius)) {
+          final lastTrigger = cooldowns[reminder.id];
 
-        if (lastTrigger == null ||
-            DateTime.now().difference(lastTrigger).inSeconds > 30) {
-          // A. Visual notification
-          await notificationPlugin.show(
-            reminder.id.hashCode,
-            ServiceStrings.arrivalAlertTitle(reminder.name),
-            ServiceStrings.arrivalAlertBody(),
-            // "📍 到达提醒: ${reminder.name}",
-            // "您已进入目标区域",
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                NotificationService.channelIdAlert,
-                ServiceStrings.alertChannelName(),
-                // '位置到达提醒',
-                importance: Importance.max,
-                priority: Priority.high,
-                fullScreenIntent: true,
-                playSound: false,
+          if (lastTrigger == null ||
+              DateTime.now().difference(lastTrigger).inSeconds > 30) {
+            // A. Visual notification
+            await notificationPlugin.show(
+              reminder.id.hashCode,
+              ServiceStrings.arrivalAlertTitle(reminder.name),
+              ServiceStrings.arrivalAlertBody(),
+              // "📍 到达提醒: ${reminder.name}",
+              // "您已进入目标区域",
+              NotificationDetails(
+                android: AndroidNotificationDetails(
+                  NotificationService.channelIdAlert,
+                  ServiceStrings.alertChannelName(),
+                  // '位置到达提醒',
+                  importance: Importance.max,
+                  priority: Priority.high,
+                  fullScreenIntent: true,
+                  playSound: false,
+                ),
               ),
-            ),
-          );
+            );
 
-          // B. Vibration
-          if (reminderTypeIndex == 1 || reminderTypeIndex == 2) {
-            // TODO 设置中调整震动模式
-            if (await Vibration.hasVibrator()) {
-              Vibration.vibrate(pattern: [
-                0,
-                1000,
-                500,
-                1000,
-                500,
-                1000,
-                500,
-                1000,
-                500,
-                1000,
-                100,
-                200,
-                100,
-                200,
-                100,
-                200,
-                100,
-                200,
-                100,
-                200
-              ], amplitude: 255);
-            }
-          }
-
-          // C. Audio
-          if (reminderTypeIndex == 0 || reminderTypeIndex == 2) {
-            if (customRingtonePath != null &&
-                File(customRingtonePath).existsSync()) {
-              try {
-                await audioPlayer.stop();
-                await audioPlayer.play(DeviceFileSource(customRingtonePath));
-              } catch (e) {
-                debugPrint("AudioPlayer Error: $e");
+            // B. Vibration
+            if (reminderTypeIndex == 1 || reminderTypeIndex == 2) {
+              // TODO 设置中调整震动模式
+              if (await Vibration.hasVibrator()) {
+                Vibration.vibrate(pattern: [
+                  0,
+                  1000,
+                  500,
+                  1000,
+                  500,
+                  1000,
+                  500,
+                  1000,
+                  500,
+                  1000,
+                  100,
+                  200,
+                  100,
+                  200,
+                  100,
+                  200,
+                  100,
+                  200,
+                  100,
+                  200
+                ], amplitude: 255);
               }
             }
+
+            // C. Audio
+            if (reminderTypeIndex == 0 || reminderTypeIndex == 2) {
+              if (customRingtonePath != null &&
+                  File(customRingtonePath).existsSync()) {
+                try {
+                  await audioPlayer.stop();
+                  await audioPlayer.play(DeviceFileSource(customRingtonePath));
+                } catch (e) {
+                  debugPrint("AudioPlayer Error: $e");
+                }
+              }
+            }
+
+            // D. Floatting Window
+            service.invoke('showOverlay', {
+              'name': reminder.name,
+              'lat': reminder.latitude,
+              'lng': reminder.longitude,
+            });
+
+            cooldowns[reminder.id] = DateTime.now();
           }
-
-          // D. Floatting Window
-          service.invoke('showOverlay', {
-            'name': reminder.name,
-            'lat': reminder.latitude,
-            'lng': reminder.longitude,
-          });
-
-          cooldowns[reminder.id] = DateTime.now();
+        } else {
+          cooldowns.remove(reminder.id);
         }
-      } else {
-        cooldowns.remove(reminder.id);
       }
+    });
+  }
+
+  service.on('updateDistanceFilter').listen((event) {
+    final newDistanceFilter = event?['distanceFilter'] as int?;
+    if (newDistanceFilter != null) {
+      distanceFilterController.add(newDistanceFilter);
     }
+  });
+
+  startPositionStream(distanceFilterController.value);
+
+  distanceFilterController.distinct().listen((distanceFilter) {
+    startPositionStream(distanceFilter);
+  });
+
+  service.on('stopService').listen((event) {
+    positionSubscription?.cancel();
+    distanceFilterController.close();
+    service.stopSelf();
   });
 }
 
@@ -187,7 +208,8 @@ class LocationService {
         isForegroundMode: true,
         notificationChannelId: NotificationService.channelIdBackground,
         initialNotificationTitle: ServiceStrings.backgroundNotificationTitle(),
-        initialNotificationContent: ServiceStrings.backgroundNotificationContent(),
+        initialNotificationContent:
+            ServiceStrings.backgroundNotificationContent(),
         foregroundServiceNotificationId: 888,
       ),
       iosConfiguration: IosConfiguration(
@@ -245,6 +267,29 @@ class LocationService {
       ));
       debugPrint("Error getting current location: $e");
       return null;
+    }
+  }
+
+  Future<void> updateDistanceFilter(int distanceFilter) async {
+    try {
+      final settingsBox = Hive.box('settings_box');
+      await settingsBox.put('distance_filter', distanceFilter);
+
+      service.invoke('updateDistanceFilter', {
+        'distanceFilter': distanceFilter,
+      });
+    } catch (e) {
+      debugPrint('Failed to update distance filter: $e');
+    }
+  }
+
+  Future<int> getCurrentDistanceFilter() async {
+    try {
+      final settingsBox = Hive.box('settings_box');
+      return settingsBox.get('distance_filter', defaultValue: 10);
+    } catch (e) {
+      debugPrint('Failed to get distance filter: $e');
+      return 10;
     }
   }
 

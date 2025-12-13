@@ -152,10 +152,11 @@ class _OfflineMapScreenState extends ConsumerState<OfflineMapScreen>
                 initialData: _service.getAllTasks(),
                 builder: (context, snapshot) {
                   final tasks = snapshot.data ?? [];
-                  if (tasks.isEmpty)
+                  if (tasks.isEmpty) {
                     return Center(
                         child: Text(
                             AppLocalizations.of(context)!.offlineMapNoTasks));
+                  }
                   final reversedTasks = tasks.reversed.toList();
 
                   return ListView.builder(

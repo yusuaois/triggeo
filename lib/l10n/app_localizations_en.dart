@@ -116,6 +116,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTestSetting => 'Test Setting';
 
   @override
+  String settingsDistanceFilter(Object distanceFilter) {
+    return 'Distance Filter($distanceFilter m)';
+  }
+
+  @override
+  String get settingsDistanceFilterHint =>
+      'Minimum distance to update location (in meters). The smaller the value, the more frequent the location update, but the higher the battery consumption';
+
+  @override
+  String get settingsLocationUpdate => 'Location Update';
+
+  @override
   String get settingsMapDataSection => 'Map & Data';
 
   @override

@@ -284,6 +284,24 @@ abstract class AppLocalizations {
   /// **'Test Setting'**
   String get settingsTestSetting;
 
+  /// No description provided for @settingsDistanceFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance Filter({distanceFilter} m)'**
+  String settingsDistanceFilter(Object distanceFilter);
+
+  /// No description provided for @settingsDistanceFilterHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum distance to update location (in meters). The smaller the value, the more frequent the location update, but the higher the battery consumption'**
+  String get settingsDistanceFilterHint;
+
+  /// No description provided for @settingsLocationUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Location Update'**
+  String get settingsLocationUpdate;
+
   /// No description provided for @settingsMapDataSection.
   ///
   /// In en, this message translates to:

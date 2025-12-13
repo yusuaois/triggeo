@@ -114,6 +114,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsTestSetting => '测试当前设置';
 
   @override
+  String settingsDistanceFilter(Object distanceFilter) {
+    return '位置更新距离($distanceFilter 米)';
+  }
+
+  @override
+  String get settingsDistanceFilterHint =>
+      '设置位置更新的最小距离（单位：米），数值越小位置更新越频繁，但耗电量越高';
+
+  @override
+  String get settingsLocationUpdate => '位置更新设置';
+
+  @override
   String get settingsMapDataSection => '地图与数据';
 
   @override
