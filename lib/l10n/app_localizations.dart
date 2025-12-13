@@ -278,6 +278,48 @@ abstract class AppLocalizations {
   /// **'Unable to play audio: {error}'**
   String settingsRintonePlayFiled(Object error);
 
+  /// No description provided for @settingsCustomVibrationPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Vibration Pattern'**
+  String get settingsCustomVibrationPattern;
+
+  /// No description provided for @settingsEditVibrationPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Vibration Pattern'**
+  String get settingsEditVibrationPattern;
+
+  /// No description provided for @settingsVibrationPatternHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 0, 100, 50, 100, 500, 200'**
+  String get settingsVibrationPatternHint;
+
+  /// No description provided for @settingsVibrationPatternHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a comma-separated list of integers: delay, duration, delay, duration... (in milliseconds).'**
+  String get settingsVibrationPatternHelp;
+
+  /// No description provided for @settingsVibrationPatternSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibration pattern saved: {pattern}'**
+  String settingsVibrationPatternSaved(Object pattern);
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
   /// No description provided for @settingsTestSetting.
   ///
   /// In en, this message translates to:

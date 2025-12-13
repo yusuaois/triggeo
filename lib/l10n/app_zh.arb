@@ -62,6 +62,18 @@
             "error": {}
         }
     },
+    "settingsCustomVibrationPattern": "自定义震动模式",
+    "settingsEditVibrationPattern": "编辑震动模式",
+    "settingsVibrationPatternHint": "例如: 0, 100, 50, 100, 500, 200",
+    "settingsVibrationPatternHelp": "输入逗号分隔的整数列表：延迟, 持续时间, 延迟, 持续时间...（单位：毫秒）。",
+    "settingsVibrationPatternSaved": "震动模式已保存: {pattern}",
+    "@settingsVibrationPatternSaved": {
+        "placeholders": {
+        "pattern": {}
+        }
+    },
+    "cancel": "取消",
+    "save": "保存",
     "settingsTestSetting": "测试当前设置",
 
     "settingsDistanceFilter": "位置更新距离({distanceFilter} 米)",

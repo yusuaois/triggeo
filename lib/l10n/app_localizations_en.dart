@@ -113,6 +113,30 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get settingsCustomVibrationPattern => 'Custom Vibration Pattern';
+
+  @override
+  String get settingsEditVibrationPattern => 'Edit Vibration Pattern';
+
+  @override
+  String get settingsVibrationPatternHint => 'e.g. 0, 100, 50, 100, 500, 200';
+
+  @override
+  String get settingsVibrationPatternHelp =>
+      'Enter a comma-separated list of integers: delay, duration, delay, duration... (in milliseconds).';
+
+  @override
+  String settingsVibrationPatternSaved(Object pattern) {
+    return 'Vibration pattern saved: $pattern';
+  }
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get save => 'Save';
+
+  @override
   String get settingsTestSetting => 'Test Setting';
 
   @override

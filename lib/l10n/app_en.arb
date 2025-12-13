@@ -62,6 +62,18 @@
             "error": {}
         }
     },
+    "settingsCustomVibrationPattern": "Custom Vibration Pattern",
+    "settingsEditVibrationPattern": "Edit Vibration Pattern",
+    "settingsVibrationPatternHint": "e.g. 0, 100, 50, 100, 500, 200",
+    "settingsVibrationPatternHelp": "Enter a comma-separated list of integers: delay, duration, delay, duration... (in milliseconds).",
+    "settingsVibrationPatternSaved": "Vibration pattern saved: {pattern}",
+    "@settingsVibrationPatternSaved": {
+        "placeholders": {
+        "pattern": {}
+        }
+    },
+    "cancel": "Cancel",
+    "save": "Save",
     "settingsTestSetting": "Test Setting",
 
     "settingsDistanceFilter": "Distance Filter({distanceFilter} m)",

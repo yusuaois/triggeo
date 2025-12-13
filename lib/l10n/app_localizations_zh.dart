@@ -111,6 +111,30 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get settingsCustomVibrationPattern => '自定义震动模式';
+
+  @override
+  String get settingsEditVibrationPattern => '编辑震动模式';
+
+  @override
+  String get settingsVibrationPatternHint => '例如: 0, 100, 50, 100, 500, 200';
+
+  @override
+  String get settingsVibrationPatternHelp =>
+      '输入逗号分隔的整数列表：延迟, 持续时间, 延迟, 持续时间...（单位：毫秒）。';
+
+  @override
+  String settingsVibrationPatternSaved(Object pattern) {
+    return '震动模式已保存: $pattern';
+  }
+
+  @override
+  String get cancel => '取消';
+
+  @override
+  String get save => '保存';
+
+  @override
   String get settingsTestSetting => '测试当前设置';
 
   @override

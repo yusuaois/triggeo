@@ -26,6 +26,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   GlobalReminderType _reminderType = GlobalReminderType.both;
   String? _customRingtonePath;
   int _distanceFilter = 10;
+  String _vibrationPatternString = "0, 1000, 500, 1000, 500, 1000";
+  final TextEditingController _patternController = TextEditingController();
 
   @override
   void initState() {
@@ -40,6 +42,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       _reminderType = GlobalReminderType.values[typeIndex];
       _customRingtonePath = _settingsBox.get('custom_ringtone_path');
       _distanceFilter = _settingsBox.get('distance_filter', defaultValue: 10);
+      _vibrationPatternString = _settingsBox.get('vibration_pattern',
+          defaultValue: "0, 1000, 500, 1000, 500, 1000");
+      _patternController.text = _vibrationPatternString;
     });
   }
 
@@ -56,9 +61,22 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await locationService.updateDistanceFilter(value);
   }
 
+  Future<void> _saveVibrationPattern(String patternString) async {
+    setState(() => _vibrationPatternString = patternString);
+    await _settingsBox.put('vibration_pattern', patternString);
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(AppLocalizations.of(context)!
+                .settingsVibrationPatternSaved(patternString))),
+      );
+    }
+  }
+
   Future<void> _pickAndSaveRingtone() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.audio,allowMultiple: false);
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.audio, allowMultiple: false);
 
     if (result != null && result.files.single.path != null) {
       final sourceFile = File(result.files.single.path!);
@@ -139,6 +157,61 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             onTap: _pickAndSaveRingtone,
           ),
 
+          // Custom Vibration Pattern
+          ListTile(
+            leading: const Icon(Icons.vibration),
+            title: Text(
+                AppLocalizations.of(context)!.settingsCustomVibrationPattern),
+            subtitle: Text(_vibrationPatternString),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () async {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text(AppLocalizations.of(context)!
+                        .settingsEditVibrationPattern),
+                    content: TextField(
+                      controller: _patternController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!
+                            .settingsVibrationPatternHint,
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.info_outline),
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(AppLocalizations.of(context)!
+                                    .settingsVibrationPatternHelp),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.cancel),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          _patternController.text = _vibrationPatternString;
+                        },
+                      ),
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.save),
+                        onPressed: () {
+                          _saveVibrationPattern(_patternController.text);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+
           ListTile(
             leading: const Icon(Icons.play_circle_fill),
             title: Text(AppLocalizations.of(context)!.settingsTestSetting),
@@ -150,7 +223,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               }
               if (_reminderType == GlobalReminderType.vibration ||
                   _reminderType == GlobalReminderType.both) {
-                audioService.vibrate(context);
+                final pattern = _patternController.text
+                    .split(',')
+                    .map((e) => int.tryParse(e.trim()) ?? -1)
+                    .where((e) => e >= 0)
+                    .toList();
+                audioService.vibrate(
+                  context,
+                  pattern: pattern.isNotEmpty ? pattern : null,
+                );
               }
             },
           ),
@@ -228,15 +309,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           _buildSectionHeader(
               context, AppLocalizations.of(context)!.settingsLocationUpdate),
           ListTile(
-            title: Text(
-                AppLocalizations.of(context)!.settingsDistanceFilter(_distanceFilter)),
+            title: Text(AppLocalizations.of(context)!
+                .settingsDistanceFilter(_distanceFilter)),
             subtitle: Slider(
               value: _distanceFilter.toDouble(),
               min: 5,
               max: 100,
               divisions: 19, // (100-5)/5 = 19
-              label: '$_distanceFilter''m',
-              onChanged: (value) => setState(() => _distanceFilter = value.toInt()),
+              label: '$_distanceFilter' 'm',
+              onChanged: (value) =>
+                  setState(() => _distanceFilter = value.toInt()),
               onChangeEnd: (value) => _saveDistanceFilter(value.toInt()),
             ),
           ),

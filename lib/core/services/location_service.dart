@@ -121,30 +121,32 @@ void onStart(ServiceInstance service) async {
 
             // B. Vibration
             if (reminderTypeIndex == 1 || reminderTypeIndex == 2) {
-              // TODO 设置中调整震动模式
-              if (await Vibration.hasVibrator()) {
-                Vibration.vibrate(pattern: [
-                  0,
-                  1000,
-                  500,
-                  1000,
-                  500,
-                  1000,
-                  500,
-                  1000,
-                  500,
-                  1000,
-                  100,
-                  200,
-                  100,
-                  200,
-                  100,
-                  200,
-                  100,
-                  200,
-                  100,
-                  200
-                ], amplitude: 255);
+              if (await Vibration.hasVibrator() == true) {
+                // Read Custom Vibration Pattern
+                final String patternString = settingsBox.get(
+                    'vibration_pattern',
+                    defaultValue: "0, 1000, 500, 1000, 500, 1000"); // Default
+                
+                List<int> pattern;
+                try {
+                  pattern = patternString
+                      .split(',')
+                      .map((s) => int.tryParse(s.trim()) ?? 0)
+                      .toList();
+                  
+                  if (pattern.isEmpty) {
+                      throw const FormatException("Pattern is empty.");
+                  }
+
+                } catch (e) {
+                  debugPrint("Vibration pattern parsing failed: $e. Using default.");
+                  pattern = [0, 500, 200, 500]; 
+                }
+
+                Vibration.vibrate(
+                  pattern: pattern,
+                  amplitude: 255, 
+                );
               }
             }
 
