@@ -35,7 +35,7 @@ const List<SearchApi> kSearchApis = [
   ),
   SearchApi(
       '高德',
-      'https://restapi.amap.com/v3/place/text?keywords={query}&offset=5&page=1&extensions=all&key={key}',
+      'https://restapi.amap.com/v3/place/text?keywords={query}&offset=5&page=1&extensions=base&key={key}',
       true,
       "assets/images/amap.svg"),
   SearchApi(
