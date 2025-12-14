@@ -114,8 +114,13 @@ class TriggeoApp extends ConsumerWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: [
-            Locale('zh', 'CN'), // Chinese
-            Locale('en', 'US'), // English
+            const Locale('zh'), // Chinese
+            const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'), // Chinese Simplified
+            const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'), // Chinese Traditional
+            const Locale('de'), // German
+            const Locale('ko'), // Korean
+            const Locale('ja'), // Japanese
+            const Locale('en'), // English
           ],
           routerConfig: router,
         );

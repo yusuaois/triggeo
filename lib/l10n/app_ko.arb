@@ -1,0 +1,224 @@
+{
+    "@@locale": "ko",
+    "helloWorld": "안녕하세요 세계",
+
+    "mapApiKeyTitle": "API 키",
+    "mapApiKeyHint": "API 키를 입력하세요",
+    "mapCancel": "취소",
+    "mapConfirm": "확인",
+    "needApiKey": "{name} 에 대한 API 키를 설정해주세요",
+    "@needApiKey": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+
+    "mapSearchFailed": "검색 실패: {error}",
+    "@mapSearchFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapGetLocationFailed": "위치 정보 가져오기 실패: {error}",
+    "@mapGetLocationFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapLocating": "위치 찾는 중...",
+    "mapSearchHint": "장소 검색",
+    "mapSearchEmptyError": "검색어를 입력하세요",
+    "mapLocationFailed": "위치 찾기 실패: {error}",
+    "@mapLocationFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapLongPressHint": "지도의 아무 곳이나 길게 눌러 알림 추가",
+    "mapNoSearchResults": "검색 결과가 없습니다",
+    
+    "settingsRingtoneSaved": "벨소리 저장됨: {ringtoneName}",
+    "@settingsRingtoneSaved": {
+        "placeholders": {
+            "ringtoneName": {}
+        }
+    },
+    "settingsTitle": "설정",
+    "settingsThemeSection": "테마",
+    "settingsDynamic":"동적 색상 (Material You)",
+    "settingsSystemWallpaperColor": "시스템 배경화면 색상 따르기 (Android 12+만 해당)",
+    "settingsCustomThemeColor": "사용자 정의 테마 색상",
+    "settingsDarkMode": "다크 모드",
+    "settingsLightMode": "라이트 모드",
+    "settingsThemeSystem": "시스템 설정 따르기",
+    "settingsThemeLight": "밝게",
+    "settingsThemeDark": "어둡게",
+    "settingsReminderSection": "알림 설정",
+    "settingsReminderType": "알림 유형",
+    "settingsReminderRingtone": "벨소리",
+    "settingsReminderVibration": "진동",
+    "settingsReminderBoth": "벨소리 및 진동",
+    "settingsReminderVibrationNotSupport": "이 기기는 진동을 지원하지 않습니다",
+    "settingsCustomRingtone": "사용자 정의 알림음",
+    "settingsPickRingtone": "눌러서 오디오 파일 선택",
+    "settingsRintoneFileNotFound": "경로 {filePath} 에 오디오 파일을 찾을 수 없습니다",
+    "@settingsRintoneFileNotFound": {
+        "placeholders": {
+            "filePath": {}
+        }
+    },
+    "settingsRintonePlayFiled": "오디오 파일 재생 실패, 오류: {error}",
+    "@settingsRintonePlayFiled": {
+      "placeholders": {
+            "error": {}
+        }
+    },
+    "settingsCustomVibrationPattern": "사용자 정의 진동 패턴",
+    "settingsEditVibrationPattern": "진동 패턴 편집",
+    "settingsVibrationPatternHint": "예: 0, 100, 50, 100, 500, 200",
+    "settingsVibrationPatternHelp": "쉼표로 구분된 정수 목록을 입력하세요: 지연, 지속 시간, 지연, 지속 시간... (단위: 밀리초).",
+    "settingsVibrationPatternSaved": "진동 패턴 저장됨: {pattern}",
+    "@settingsVibrationPatternSaved": {
+        "placeholders": {
+        "pattern": {}
+        }
+    },
+    "cancel": "취소",
+    "save": "저장",
+    "settingsTestSetting": "현재 설정 테스트",
+
+    "settingsDistanceFilter": "위치 업데이트 거리 ({distanceFilter} 미터)",
+    "@settingsDistanceFilter": {
+      "placeholders": {
+            "distanceFilter": {}
+        }
+    },
+    "settingsDistanceFilterHint": "위치 업데이트의 최소 거리(미터)를 설정합니다. 값이 작을수록 업데이트 빈도가 높아지지만 배터리 소모가 증가합니다.",
+    "settingsLocationUpdate": "위치 업데이트 설정",
+
+    "settingsMapDataSection": "지도 및 데이터",
+    "settingsOfflineMap": "오프라인 지도",
+    "settingsManageOfflineMap": "다운로드한 지도 관리",
+    "settingsTileSource": "지도 소스",
+    "settingsTileSourceRestart": "지도 소스가 변경되었습니다. 앱을 다시 시작해야 적용됩니다.",
+
+    "offlineMapAddedToQueue": "다운로드 대기열에 추가되었습니다",
+    "offlineMapTitle": "오프라인 지도 관리",
+    "offlineMapTabNew": "새 지도 다운로드",
+    "offlineMapTabTasks": "작업 및 다운로드",
+    "offlineMapLoadingData": "오프라인 지도 데이터 로드 중...",
+    "offlineMapLoadFailed": "로드 실패: {error}",
+    "@offlineMapLoadFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "offlineMapSearchHint": "도시 검색",
+    "offlineMapSearchButton": "검색",
+    "offlineMapSearching": "검색 중...",
+    "offlineMapNoResults": "검색 결과가 없습니다",
+    "offlineMapDownloadAction": "다운로드",
+    "offlineMapStatusDownloading": "다운로드 중 {percent}%",
+    "@offlineMapStatusDownloading": {
+        "placeholders": {
+            "percent": {}
+        }
+    },
+    "offlineMapStatusCompleted": "완료",
+    "offlineMapStatusFailed": "다운로드 실패",
+    "offlineMapStatusPaused": "일시 중지됨",
+    "offlineMapStatusCanceled": "취소됨",
+    "offlineMapStatusPending": "대기 중...",
+    "offlineMapPauseAction": "일시 중지",
+    "offlineMapResumeAction": "재개",
+    "offlineMapDeleteAction": "삭제",
+    "offlineMapNoTasks": "작업 없음",
+
+    "reminderNameRequired": "이름을 입력하세요",
+    "reminderSaveFailed": "저장 실패: {error}",
+    "@reminderSaveFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "reminderDetailTitle": "알림 설정",
+    "reminderNameLabel": "위치 이름",
+    "reminderNameHint": "예: 마트, 회사",
+    "reminderRadiusText": "알림 반경: {radius} 미터",
+    "@reminderRadiusText": {
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "saveAction": "저장",
+    
+    "reminderListTitle": "내 알림",
+    "reminderListEmpty": "알림 없음",
+    "reminderListItemSubtitle": "반경: {radius}m\n좌표: {lat}, {lon}",
+    "@reminderListItemSubtitle": {
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            },
+            "lat": {},
+            "lon": {}
+        }
+    },
+    "reminderEditTitle": "알림 추가/편집",
+    "reminderDetailInfo":"위도: {lat}\n경도: {lon}",
+    "@reminderDetailInfo": {
+        "placeholders": {
+            "lat": {},
+            "lon": {}
+        }
+    },
+    "reminderCreated":"알림이 생성되었습니다",
+    "reminderUpdated":"알림이 업데이트되었습니다",
+    "cancelAction": "취소",
+
+    "backgroundServiceTitle": "Triggeo 백그라운드 감지",
+    "backgroundServiceContent": "백그라운드 위치 감지 중...",
+    "backgroundServicePermissionError": "백그라운드 서비스를 시작할 수 없습니다. 위치 권한이 부여되었는지 확인하세요",
+    "backgroundServiceAlwaysPermissionError": "위치 권한이 충분하지 않습니다. 백그라운드 알림 기능이 올바르게 작동하도록 시스템 설정에서 '항상 허용' 권한을 부여하십시오.",
+    "backgroundServiceStarted": "백그라운드 위치 서비스가 시작되었습니다",
+    "backgroundServiceStopped": "백그라운드 위치 서비스가 중지되었습니다",
+    
+    "locationServiceAlertTitle": "알림 트리거됨: {name}",
+    "@locationServiceAlertTitle": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+    "arrivalAlertTitle": "📍 도착 알림: {name}",
+    "@arrivalAlertTitle": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+    "arrivalAlertBody": "목표 영역에 도착했습니다",
+
+    "backgroundChannelName": "백그라운드 실행 서비스",
+    "backgroundChannelDesc": "앱이 백그라운드에서 위치를 계속 감지하도록 유지",
+    "alertChannelName": "위치 도착 알림",
+    "alertChannelDesc": "목적지에 도착했을 때 알림을 제공",
+    "downloadChannelName": "지도 다운로드 진행률",
+    "downloadChannelDesc": "오프라인 지도 다운로드 진행률 표시",
+    
+    "downloadProgressTitle": "오프라인 지도 다운로드 중 ({activeTasks} 개 작업)",
+    "@downloadProgressTitle": {
+        "placeholders": {
+            "activeTasks": {
+                "type": "int"
+            }
+        }
+    },
+    "notificationDownloadFailedTitle": "다운로드 실패: {error}",
+    "@notificationDownloadFailedTitle": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "notificationDownloadFailedBody": "네트워크를 확인하고 다시 시도하세요"
+}

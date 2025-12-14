@@ -1,0 +1,224 @@
+{
+    "@@locale": "de",
+    "helloWorld": "Hallo Welt",
+
+    "mapApiKeyTitle": "API-Schlüssel",
+    "mapApiKeyHint": "Bitte geben Sie Ihren API-Schlüssel ein",
+    "mapCancel": "Abbrechen",
+    "mapConfirm": "Bestätigen",
+    "needApiKey": "Bitte geben Sie den API-Schlüssel für {name} ein",
+    "@needApiKey": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+
+    "mapSearchFailed": "Suche fehlgeschlagen: {error}",
+    "@mapSearchFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapGetLocationFailed": "Standortabruf fehlgeschlagen: {error}",
+    "@mapGetLocationFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapLocating": "Ortung läuft...",
+    "mapSearchHint": "Ort suchen",
+    "mapSearchEmptyError": "Bitte geben Sie Suchbegriffe ein",
+    "mapLocationFailed": "Ortung fehlgeschlagen: {error}",
+    "@mapLocationFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapLongPressHint": "Langes Drücken auf eine beliebige Stelle auf der Karte, um eine Erinnerung hinzuzufügen",
+    "mapNoSearchResults": "Keine Suchergebnisse gefunden",
+    
+    "settingsRingtoneSaved": "Klingelton gespeichert: {ringtoneName}",
+    "@settingsRingtoneSaved": {
+        "placeholders": {
+            "ringtoneName": {}
+        }
+    },
+    "settingsTitle": "Einstellungen",
+    "settingsThemeSection": "Thema",
+    "settingsDynamic":"Dynamische Farbe (Material You)",
+    "settingsSystemWallpaperColor": "System-Hintergrundfarbe folgen (nur Android 12+)",
+    "settingsCustomThemeColor": "Benutzerdefinierte Themenfarbe",
+    "settingsDarkMode": "Dunkelmodus",
+    "settingsLightMode": "Lichtmodus",
+    "settingsThemeSystem": "System folgen",
+    "settingsThemeLight": "Hell",
+    "settingsThemeDark": "Dunkel",
+    "settingsReminderSection": "Erinnerungseinstellungen",
+    "settingsReminderType": "Erinnerungstyp",
+    "settingsReminderRingtone": "Klingeln",
+    "settingsReminderVibration": "Vibration",
+    "settingsReminderBoth": "Klingeln und Vibration",
+    "settingsReminderVibrationNotSupport": "Dieses Gerät unterstützt keine Vibration",
+    "settingsCustomRingtone": "Benutzerdefinierter Benachrichtigungston",
+    "settingsPickRingtone": "Tippen Sie, um eine Audiodatei auszuwählen",
+    "settingsRintoneFileNotFound": "Audiodatei unter Pfad {filePath} nicht gefunden",
+    "@settingsRintoneFileNotFound": {
+        "placeholders": {
+            "filePath": {}
+        }
+    },
+    "settingsRintonePlayFiled": "Wiedergabe der Audiodatei fehlgeschlagen, Fehler: {error}",
+    "@settingsRintonePlayFiled": {
+      "placeholders": {
+            "error": {}
+        }
+    },
+    "settingsCustomVibrationPattern": "Benutzerdefiniertes Vibrationsmuster",
+    "settingsEditVibrationPattern": "Vibrationsmuster bearbeiten",
+    "settingsVibrationPatternHint": "Beispiel: 0, 100, 50, 100, 500, 200",
+    "settingsVibrationPatternHelp": "Geben Sie eine kommagetrennte Liste von Ganzzahlen ein: Verzögerung, Dauer, Verzögerung, Dauer... (Einheit: Millisekunden).",
+    "settingsVibrationPatternSaved": "Vibrationsmuster gespeichert: {pattern}",
+    "@settingsVibrationPatternSaved": {
+        "placeholders": {
+        "pattern": {}
+        }
+    },
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "settingsTestSetting": "Aktuelle Einstellungen testen",
+
+    "settingsDistanceFilter": "Standortaktualisierungsentfernung ({distanceFilter} Meter)",
+    "@settingsDistanceFilter": {
+      "placeholders": {
+            "distanceFilter": {}
+        }
+    },
+    "settingsDistanceFilterHint": "Stellt die minimale Entfernung für Standortaktualisierungen (in Metern) ein. Kleinere Werte führen zu häufigeren Aktualisierungen, aber höherem Batterieverbrauch.",
+    "settingsLocationUpdate": "Standortaktualisierungseinstellungen",
+
+    "settingsMapDataSection": "Karte und Daten",
+    "settingsOfflineMap": "Offline-Karten",
+    "settingsManageOfflineMap": "Heruntergeladene Karten verwalten",
+    "settingsTileSource": "Kartenquelle",
+    "settingsTileSourceRestart": "Kartenquelle wurde gewechselt, tritt nach Neustart der App in Kraft",
+
+    "offlineMapAddedToQueue": "Zur Download-Warteschlange hinzugefügt",
+    "offlineMapTitle": "Offline-Kartenverwaltung",
+    "offlineMapTabNew": "Neue Karten herunterladen",
+    "offlineMapTabTasks": "Aufgaben und Heruntergeladenes",
+    "offlineMapLoadingData": "Offline-Kartendaten werden geladen...",
+    "offlineMapLoadFailed": "Laden fehlgeschlagen: {error}",
+    "@offlineMapLoadFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "offlineMapSearchHint": "Stadt suchen",
+    "offlineMapSearchButton": "Suchen",
+    "offlineMapSearching": "Wird gesucht...",
+    "offlineMapNoResults": "Keine Suchergebnisse gefunden",
+    "offlineMapDownloadAction": "Herunterladen",
+    "offlineMapStatusDownloading": "Wird heruntergeladen {percent}%",
+    "@offlineMapStatusDownloading": {
+        "placeholders": {
+            "percent": {}
+        }
+    },
+    "offlineMapStatusCompleted": "Abgeschlossen",
+    "offlineMapStatusFailed": "Download fehlgeschlagen",
+    "offlineMapStatusPaused": "Pausiert",
+    "offlineMapStatusCanceled": "Abgebrochen",
+    "offlineMapStatusPending": "Ausstehend...",
+    "offlineMapPauseAction": "Pause",
+    "offlineMapResumeAction": "Fortsetzen",
+    "offlineMapDeleteAction": "Löschen",
+    "offlineMapNoTasks": "Keine Aufgaben vorhanden",
+
+    "reminderNameRequired": "Bitte geben Sie einen Namen ein",
+    "reminderSaveFailed": "Speichern fehlgeschlagen: {error}",
+    "@reminderSaveFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "reminderDetailTitle": "Erinnerung einstellen",
+    "reminderNameLabel": "Name des Ortes",
+    "reminderNameHint": "Beispiel: Supermarkt, Arbeit",
+    "reminderRadiusText": "Erinnerungsradius: {radius} Meter",
+    "@reminderRadiusText": {
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "saveAction": "Speichern",
+    
+    "reminderListTitle": "Meine Erinnerungen",
+    "reminderListEmpty": "Keine Erinnerungen vorhanden",
+    "reminderListItemSubtitle": "Radius: {radius}m\nKoordinaten: {lat}, {lon}",
+    "@reminderListItemSubtitle": {
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            },
+            "lat": {},
+            "lon": {}
+        }
+    },
+    "reminderEditTitle": "Erinnerung hinzufügen/bearbeiten",
+    "reminderDetailInfo":"Breitengrad: {lat}\nLängengrad: {lon}",
+    "@reminderDetailInfo": {
+        "placeholders": {
+            "lat": {},
+            "lon": {}
+        }
+    },
+    "reminderCreated":"Erinnerung wurde erstellt",
+    "reminderUpdated":"Erinnerung wurde aktualisiert",
+    "cancelAction": "Abbrechen",
+
+    "backgroundServiceTitle": "Triggeo Hintergrundüberwachung",
+    "backgroundServiceContent": "Hintergrund-Standortüberwachung läuft...",
+    "backgroundServicePermissionError": "Hintergrunddienst konnte nicht gestartet werden, stellen Sie sicher, dass die Standortberechtigung erteilt wurde",
+    "backgroundServiceAlwaysPermissionError": "Unzureichende Standortberechtigung. Bitte erteilen Sie in den Systemeinstellungen die Berechtigung „Immer zulassen“, um die ordnungsgemäße Funktion der Hintergrunderinnerung zu gewährleisten.",
+    "backgroundServiceStarted": "Hintergrund-Standortdienst wurde gestartet",
+    "backgroundServiceStopped": "Hintergrund-Standortdienst wurde beendet",
+    
+    "locationServiceAlertTitle": "Erinnerung ausgelöst: {name}",
+    "@locationServiceAlertTitle": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+    "arrivalAlertTitle": "📍 Ankunftserinnerung: {name}",
+    "@arrivalAlertTitle": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+    "arrivalAlertBody": "Sie haben das Zielgebiet erreicht",
+
+    "backgroundChannelName": "Hintergrund-Dienst",
+    "backgroundChannelDesc": "Hält die App im Hintergrund, um den Standort zu überwachen",
+    "alertChannelName": "Standort-Ankunftserinnerung",
+    "alertChannelDesc": "Erinnert Sie, wenn Sie am Zielort angekommen sind",
+    "downloadChannelName": "Karten-Download-Fortschritt",
+    "downloadChannelDesc": "Zeigt den Fortschritt des Offline-Karten-Downloads an",
+    
+    "downloadProgressTitle": "Offline-Karten werden heruntergeladen ({activeTasks} Aufgaben)",
+    "@downloadProgressTitle": {
+        "placeholders": {
+            "activeTasks": {
+                "type": "int"
+            }
+        }
+    },
+    "notificationDownloadFailedTitle": "Download fehlgeschlagen: {error}",
+    "@notificationDownloadFailedTitle": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "notificationDownloadFailedBody": "Bitte überprüfen Sie die Netzwerkverbindung und versuchen Sie es erneut"
+}

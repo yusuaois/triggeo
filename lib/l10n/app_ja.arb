@@ -1,0 +1,224 @@
+{
+    "@@locale": "ja",
+    "helloWorld": "こんにちは世界",
+
+    "mapApiKeyTitle": "APIキー",
+    "mapApiKeyHint": "APIキーを入力してください",
+    "mapCancel": "キャンセル",
+    "mapConfirm": "確認",
+    "needApiKey": "{name} のAPIキーを設定してください",
+    "@needApiKey": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+
+    "mapSearchFailed": "検索失敗: {error}",
+    "@mapSearchFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapGetLocationFailed": "位置情報取得失敗: {error}",
+    "@mapGetLocationFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapLocating": "位置特定中...",
+    "mapSearchHint": "場所を検索",
+    "mapSearchEmptyError": "検索キーワードを入力してください",
+    "mapLocationFailed": "位置特定失敗: {error}",
+    "@mapLocationFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "mapLongPressHint": "地図上の任意の場所を長押ししてリマインダーを追加",
+    "mapNoSearchResults": "検索結果が見つかりませんでした",
+    
+    "settingsRingtoneSaved": "着信音を保存しました: {ringtoneName}",
+    "@settingsRingtoneSaved": {
+        "placeholders": {
+            "ringtoneName": {}
+        }
+    },
+    "settingsTitle": "設定",
+    "settingsThemeSection": "テーマ",
+    "settingsDynamic":"ダイナミックカラー (Material You)",
+    "settingsSystemWallpaperColor": "システムの壁紙の色に従う (Android 12+のみ)",
+    "settingsCustomThemeColor": "カスタムテーマカラー",
+    "settingsDarkMode": "ダークモード",
+    "settingsLightMode": "ライトモード",
+    "settingsThemeSystem": "システムに従う",
+    "settingsThemeLight": "ライト",
+    "settingsThemeDark": "ダーク",
+    "settingsReminderSection": "リマインダー設定",
+    "settingsReminderType": "リマインダーの種類",
+    "settingsReminderRingtone": "着信音",
+    "settingsReminderVibration": "バイブレーション",
+    "settingsReminderBoth": "着信音とバイブレーション",
+    "settingsReminderVibrationNotSupport": "このデバイスはバイブレーションに対応していません",
+    "settingsCustomRingtone": "カスタム通知音",
+    "settingsPickRingtone": "タップしてオーディオファイルを選択",
+    "settingsRintoneFileNotFound": "パス {filePath} のオーディオファイルが見つかりません",
+    "@settingsRintoneFileNotFound": {
+        "placeholders": {
+            "filePath": {}
+        }
+    },
+    "settingsRintonePlayFiled": "オーディオファイルの再生に失敗しました、エラー: {error}",
+    "@settingsRintonePlayFiled": {
+      "placeholders": {
+            "error": {}
+        }
+    },
+    "settingsCustomVibrationPattern": "カスタムバイブレーションパターン",
+    "settingsEditVibrationPattern": "バイブレーションパターンの編集",
+    "settingsVibrationPatternHint": "例: 0, 100, 50, 100, 500, 200",
+    "settingsVibrationPatternHelp": "カンマ区切りの整数リストを入力してください: 遅延, 継続時間, 遅延, 継続時間...（単位: ミリ秒）。",
+    "settingsVibrationPatternSaved": "バイブレーションパターンを保存しました: {pattern}",
+    "@settingsVibrationPatternSaved": {
+        "placeholders": {
+        "pattern": {}
+        }
+    },
+    "cancel": "キャンセル",
+    "save": "保存",
+    "settingsTestSetting": "現在の設定をテスト",
+
+    "settingsDistanceFilter": "位置情報更新距離 ({distanceFilter} メートル)",
+    "@settingsDistanceFilter": {
+      "placeholders": {
+            "distanceFilter": {}
+        }
+    },
+    "settingsDistanceFilterHint": "位置情報更新の最小距離（メートル）を設定します。値が小さいほど頻繁に更新されますが、バッテリー消費が増えます。",
+    "settingsLocationUpdate": "位置情報更新設定",
+
+    "settingsMapDataSection": "地図とデータ",
+    "settingsOfflineMap": "オフライン地図",
+    "settingsManageOfflineMap": "ダウンロード済み地図の管理",
+    "settingsTileSource": "地図ソース",
+    "settingsTileSourceRestart": "地図ソースが切り替わりました。再起動後に有効になります。",
+
+    "offlineMapAddedToQueue": "ダウンロードキューに追加されました",
+    "offlineMapTitle": "オフライン地図管理",
+    "offlineMapTabNew": "新しい地図をダウンロード",
+    "offlineMapTabTasks": "タスクとダウンロード済み",
+    "offlineMapLoadingData": "オフライン地図データを読み込み中...",
+    "offlineMapLoadFailed": "読み込み失敗: {error}",
+    "@offlineMapLoadFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "offlineMapSearchHint": "都市を検索",
+    "offlineMapSearchButton": "検索",
+    "offlineMapSearching": "検索中...",
+    "offlineMapNoResults": "検索結果が見つかりませんでした",
+    "offlineMapDownloadAction": "ダウンロード",
+    "offlineMapStatusDownloading": "ダウンロード中 {percent}%",
+    "@offlineMapStatusDownloading": {
+        "placeholders": {
+            "percent": {}
+        }
+    },
+    "offlineMapStatusCompleted": "完了",
+    "offlineMapStatusFailed": "ダウンロード失敗",
+    "offlineMapStatusPaused": "一時停止",
+    "offlineMapStatusCanceled": "キャンセル済み",
+    "offlineMapStatusPending": "保留中...",
+    "offlineMapPauseAction": "一時停止",
+    "offlineMapResumeAction": "再開",
+    "offlineMapDeleteAction": "削除",
+    "offlineMapNoTasks": "タスクはありません",
+
+    "reminderNameRequired": "名前を入力してください",
+    "reminderSaveFailed": "保存失敗: {error}",
+    "@reminderSaveFailed": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "reminderDetailTitle": "リマインダーを設定",
+    "reminderNameLabel": "場所の名前",
+    "reminderNameHint": "例: スーパー、会社",
+    "reminderRadiusText": "リマインダー半径: {radius} メートル",
+    "@reminderRadiusText": {
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            }
+        }
+    },
+    "saveAction": "保存",
+    
+    "reminderListTitle": "マイリマインダー",
+    "reminderListEmpty": "リマインダーはありません",
+    "reminderListItemSubtitle": "半径: {radius}m\n座標: {lat}, {lon}",
+    "@reminderListItemSubtitle": {
+        "placeholders": {
+            "radius": {
+                "type": "int"
+            },
+            "lat": {},
+            "lon": {}
+        }
+    },
+    "reminderEditTitle": "リマインダーの追加/編集",
+    "reminderDetailInfo":"緯度: {lat}\n経度: {lon}",
+    "@reminderDetailInfo": {
+        "placeholders": {
+            "lat": {},
+            "lon": {}
+        }
+    },
+    "reminderCreated":"リマインダーが作成されました",
+    "reminderUpdated":"リマインダーが更新されました",
+    "cancelAction": "キャンセル",
+
+    "backgroundServiceTitle": "Triggeo バックグラウンド検出",
+    "backgroundServiceContent": "バックグラウンドで位置を検出中...",
+    "backgroundServicePermissionError": "バックグラウンドサービスを開始できません。位置情報の許可を与えていることを確認してください",
+    "backgroundServiceAlwaysPermissionError": "位置情報の許可が不十分です。バックグラウンドリマインダー機能を正しく機能させるには、システム設定で「常に許可」を付与してください。",
+    "backgroundServiceStarted": "バックグラウンド位置情報サービスが開始されました",
+    "backgroundServiceStopped": "バックグラウンド位置情報サービスが停止されました",
+    
+    "locationServiceAlertTitle": "リマインダー発動: {name}",
+    "@locationServiceAlertTitle": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+    "arrivalAlertTitle": "📍 到着リマインダー: {name}",
+    "@arrivalAlertTitle": {
+        "placeholders": {
+            "name": {}
+        }
+    },
+    "arrivalAlertBody": "目標エリアに到着しました",
+
+    "backgroundChannelName": "バックグラウンド実行サービス",
+    "backgroundChannelDesc": "アプリがバックグラウンドで位置を検出し続ける",
+    "alertChannelName": "位置情報到着リマインダー",
+    "alertChannelDesc": "目的地に到着したときに通知する",
+    "downloadChannelName": "地図ダウンロード進捗",
+    "downloadChannelDesc": "オフライン地図のダウンロード進捗を表示する",
+    
+    "downloadProgressTitle": "オフライン地図をダウンロード中 ({activeTasks} タスク)",
+    "@downloadProgressTitle": {
+        "placeholders": {
+            "activeTasks": {
+                "type": "int"
+            }
+        }
+    },
+    "notificationDownloadFailedTitle": "ダウンロード失敗: {error}",
+    "@notificationDownloadFailedTitle": {
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "notificationDownloadFailedBody": "ネットワークを確認して再試行してください"
+}

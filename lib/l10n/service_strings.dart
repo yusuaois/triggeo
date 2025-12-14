@@ -3,19 +3,36 @@ import 'dart:ui';
 import 'package:triggeo/l10n/app_localizations.dart'; 
 
 class ServiceStrings {
+  // zh_CN, zh_Hant, en_US, de_DE, ja_JP, ko_KR
   static AppLocalizations _getLoc([String? priorityLang]) {
+    final String systemLocale = (priorityLang ?? Platform.localeName).toLowerCase();
     Locale locale;
 
-    if (priorityLang != null && (priorityLang.startsWith('zh') || priorityLang.startsWith('en'))) {
-      locale = Locale(priorityLang.startsWith('zh') ? 'zh' : 'en');
-    } 
-    else {
-      final String systemLocale = Platform.localeName; // zh_CN, en_US
-      if (systemLocale.startsWith('zh')) {
-        locale = const Locale('zh');
+    // 1. Chinese
+    if (systemLocale.startsWith('zh')) {
+      // Traditional
+      if (systemLocale.contains('tw') || systemLocale.contains('hk') || systemLocale.contains('hant')) {
+        locale = const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'); 
       } else {
-        locale = const Locale('en');
+        // Simplified
+        locale = const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans');
       }
+    } 
+    // 2. Japanese
+    else if (systemLocale.startsWith('ja')) {
+      locale = const Locale('ja');
+    } 
+    // 3. German
+    else if (systemLocale.startsWith('de')) {
+      locale = const Locale('de');
+    } 
+    // 4. Korean
+    else if (systemLocale.startsWith('ko')) {
+      locale = const Locale('ko');
+    }
+    // 5. Other
+    else {
+      locale = const Locale('en');
     }
 
     // flutter gen-l10n

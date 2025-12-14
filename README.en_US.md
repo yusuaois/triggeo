@@ -11,6 +11,7 @@ A **compact and elegant** map application that reminds you when entering preset 
 - 🎯 **Smart Triggering** — Instant notifications when entering preset areas  
 - 🎨 **Visually Refreshing** — Smooth animations and polished interface built with Flutter  
 - 📦 **Offline Capable** — Core functions work without internet connection  
+- 🌐 **Localization Support** — Support for multiple languages(Simple Chinese, Traditional Chinese, English, German, Japanese, Korean)
 
 ---
 
