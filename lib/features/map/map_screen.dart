@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -7,10 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:http/http.dart' as http;
 import 'package:triggeo/core/constants/global_config.dart';
 import 'package:triggeo/core/services/service_locator.dart';
+import 'package:triggeo/data/models/map_place.dart';
 import 'package:triggeo/data/repositories/settings_repository.dart';
+import 'package:triggeo/features/map/services/search_strategies.dart';
 import 'package:triggeo/features/map/widgets/offline_tile_provider.dart';
 import 'package:triggeo/features/map/widgets/reminder_edit_dialog.dart';
 import 'package:triggeo/l10n/app_localizations.dart';
@@ -25,7 +25,7 @@ class MapScreen extends ConsumerStatefulWidget {
 class _MapScreenState extends ConsumerState<MapScreen> {
   final MapController _mapController = MapController();
   final TextEditingController _searchController = TextEditingController();
-  List<dynamic> _searchResults = [];
+  List<MapPlace> _searchResults = [];
   bool _isSearching = false;
   bool _hasAutoCentered = false;
 
@@ -64,32 +64,27 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   Future<void> _searchPlaces(String query) async {
     if (query.isEmpty) return;
     setState(() => _isSearching = true);
-    final settingsRepo = ref.read(settingsRepositoryProvider);
-    final api = settingsRepo.getCurrentSearchApi();
-    String? key;
-    if (api.needKey) {
-      key = settingsRepo.getSearchApiKey(api.name);
-      if (key.isEmpty) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(
-              // "Please set API Key for ${api.name}"
-              AppLocalizations.of(context)!.needApiKey(api.name))));
-        }
-        setState(() => _isSearching = false);
-        return;
-      }
-    }
-    final url = Uri.parse(api.urlTemplate
-        .replaceAll('{query}', query)
-        .replaceAll('{key}', key as String));
     try {
-      final response =
-          await http.get(url, headers: {'User-Agent': 'TriggeoApp/1.0'});
-      if (response.statusCode == 200) {
-        setState(() {
-          _searchResults = json.decode(response.body);
-        });
+      final settingsRepo = ref.read(settingsRepositoryProvider);
+      final api = settingsRepo.getCurrentSearchApi();
+      String? apiKey;
+      if (api.needKey) {
+        apiKey = settingsRepo.getSearchApiKey(api.name);
+        if (apiKey.isEmpty) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(
+                // "Please set API Key for ${api.name}"
+                AppLocalizations.of(context)!.needApiKey(api.name))));
+          }
+          setState(() => _isSearching = false);
+          return;
+        }
       }
+      final strategy = SearchStrategyFactory.getStrategy(api.name);
+      final results = await strategy.search(query, api.urlTemplate, apiKey);
+      setState(() {
+        _searchResults = results;
+      });
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -361,7 +356,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                     ),
                   ],
                 ),
-                if (_searchResults.isNotEmpty)
+                if (_searchController.text.isNotEmpty && !_isSearching)
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     constraints: const BoxConstraints(maxHeight: 200),
@@ -372,37 +367,54 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                         BoxShadow(color: Colors.black12, blurRadius: 4)
                       ],
                     ),
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      itemCount: _searchResults.length,
-                      itemBuilder: (context, index) {
-                        final place = _searchResults[index];
-                        if (place.isEmpty) {
-                          return Center(
-                            child: Text(AppLocalizations.of(context)!
-                                .mapNoSearchResults),
-                          );
-                        }
-                        return ListTile(
-                          title: Text(place['display_name'].split(',')[0],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.primary)),
-                          subtitle: Text(place['display_name'],
-                              maxLines: 1, overflow: TextOverflow.ellipsis),
-                          leading: Icon(Icons.location_city,
-                              size: 20,
-                              color: Theme.of(context).colorScheme.primary),
-                          onTap: () {
-                            final lat = double.parse(place['lat']);
-                            final lon = double.parse(place['lon']);
-                            _moveToLocation(lat, lon);
-                          },
-                        );
-                      },
-                    ),
+                    child: _searchResults.isEmpty
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .mapNoSearchResults,
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemCount: _searchResults.length,
+                            itemBuilder: (context, index) {
+                              final place = _searchResults[index];
+                              return ListTile(
+                                title: Text(place.title,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface)),
+                                subtitle: Text(place.subtitle,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurfaceVariant)),
+                                leading: Icon(Icons.location_city,
+                                    size: 20,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
+                                onTap: () {
+                                  _moveToLocation(
+                                      place.latitude, place.longitude);
+                                },
+                              );
+                            },
+                          ),
                   ),
               ],
             ),
