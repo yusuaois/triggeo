@@ -39,7 +39,7 @@ jobs:
       - name: 📝 Inject SHA into Release Body
         run: |
           SHA_VALUE="${{ github.sha }}"
-          sed "s|\${{ github.sha }}|${SHA_VALUE}|g" ./CHANGELOG.md > release_body.md
+          sed "s|__SHA__|${SHA_VALUE}|g" ./CHANGELOG.md > release_body.md
 
       - name: ✅ Release
         uses: softprops/action-gh-release@v2
