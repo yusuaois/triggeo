@@ -1,0 +1,50 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.4'
+          channel: 'stable'
+
+      - name: 📦 Get Dependencies
+        run: flutter pub get
+
+      - name: ⚙️ Build Runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: 🏗️ Build APK & AAB
+        run: |
+          flutter build apk --release
+          flutter build appbundle --release
+
+      
+      - name: 🏷️ Rename Artifacts
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk Triggeo_${{ github.ref_name }}.apk
+          mv build/app/outputs/bundle/release/app-release.aab Triggeo_${{ github.ref_name }}.aab
+
+      - name: 📝 Inject SHA into Release Body
+        run: |
+          SHA_VALUE="${{ github.sha }}"
+          sed "s|\${{ github.sha }}|${SHA_VALUE}|g" ./CHANGELOG.md > release_body.md
+
+      - name: ✅ Release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.Release }}
+          files: Triggeo_v*.* 
+          body_path: ./release_body.md
+          generate_release_notes: false
