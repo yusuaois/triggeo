@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../../data/models/map_place.dart';
+import '../../../core/utils/coordinate_transform.dart';
 
 // Strategy
 abstract class SearchStrategy {
@@ -20,7 +21,7 @@ class SearchStrategyFactory {
   }
 }
 
-// OpenStreetMap
+// OpenStreetMap  WGS84
 class OsmSearchStrategy implements SearchStrategy {
   @override
   Future<List<MapPlace>> search(String query, String urlTemplate, String? apiKey) async {
@@ -30,6 +31,7 @@ class OsmSearchStrategy implements SearchStrategy {
     if (response.statusCode != 200) return [];
     
     final List data = json.decode(response.body);
+
     return data.map((item) {
       return MapPlace(
         title: item['display_name'].split(',')[0],
@@ -41,8 +43,9 @@ class OsmSearchStrategy implements SearchStrategy {
   }
 }
 
-// Baidu 百度
+// Baidu 百度 BD09 -> WGS84
 class BaiduSearchStrategy implements SearchStrategy {
+  // bd09ToWgs84
   @override
   Future<List<MapPlace>> search(String query, String urlTemplate, String? apiKey) async {
     final url = Uri.parse(urlTemplate
@@ -55,20 +58,20 @@ class BaiduSearchStrategy implements SearchStrategy {
     final data = json.decode(response.body);
     final results = data['results'] as List?;
     if (results == null) return [];
-
     return results.map((item) {
       final loc = item['location'];
+      final convertedCoords = CoordinateTransform.bd09ToWgs84((loc['lng'] as num).toDouble(), (loc['lat'] as num).toDouble());
       return MapPlace(
         title: item['name'],
         subtitle: item['address'] ?? "",
-        latitude: (loc['lat'] as num).toDouble(),
-        longitude: (loc['lng'] as num).toDouble(),
+        latitude: convertedCoords[1],
+        longitude: convertedCoords[0],
       );
     }).toList();
   }
 }
 
-// Amap 高德
+// Amap 高德  GCJ02 -> WGS84
 class AmapSearchStrategy implements SearchStrategy {
   @override
   Future<List<MapPlace>> search(String query, String urlTemplate, String? apiKey) async {
@@ -88,11 +91,12 @@ class AmapSearchStrategy implements SearchStrategy {
       final locationStr = item['location'] as String;
       final splitLoc = locationStr.split(',');
       if (splitLoc.length == 2) {
+        final convertedCoords = CoordinateTransform.gcj02ToWgs84(double.parse(splitLoc[0]), double.parse(splitLoc[1]));
         places.add(MapPlace(
           title: item['name'],
           subtitle: item['address'] is String ? item['address'] : item['type'],
-          latitude: double.parse(splitLoc[1]), 
-          longitude: double.parse(splitLoc[0]),
+          latitude: convertedCoords[1], 
+          longitude: convertedCoords[0],
         ));
       }
     }
